@@ -1,26 +1,13 @@
 package calhack.flightbuddy;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 
 public class HomeActivity extends Activity {
 
@@ -30,7 +17,12 @@ public class HomeActivity extends Activity {
         setContentView(R.layout.activity_home);
 
         Button searchButton = (Button) findViewById(R.id.search);
+        Button savedButton = (Button) findViewById(R.id.saved);
+        Button descriptionButton = (Button) findViewById(R.id.description);
+
         searchButton.setOnClickListener(searchButtonListener);
+        savedButton.setOnClickListener(savedButtonListener);
+        descriptionButton.setOnClickListener(descriptionButtonListener);
     }
 
     @Override
@@ -56,6 +48,20 @@ public class HomeActivity extends Activity {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(v.getContext(), SearchActivity.class);
+            startActivity(intent);
+        }
+    };
+    View.OnClickListener savedButtonListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(v.getContext(), SavedActivity.class);
+            startActivity(intent);
+        }
+    };
+    View.OnClickListener descriptionButtonListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(v.getContext(), DescriptionActivity.class);
             startActivity(intent);
         }
     };

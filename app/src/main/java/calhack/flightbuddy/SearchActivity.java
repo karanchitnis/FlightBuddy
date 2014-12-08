@@ -5,14 +5,13 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,7 +25,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.util.Arrays;
 import java.util.Calendar;
 
 /**
@@ -34,7 +32,6 @@ import java.util.Calendar;
  */
 public class SearchActivity extends Activity {
 
-    private DatePicker datePicker;
     private Calendar calendar;
     private EditText dateView;
     private int year, month, day;
@@ -50,6 +47,21 @@ public class SearchActivity extends Activity {
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
         showDate(year, month+1, day);
+
+        Bundle b = getIntent().getExtras();
+        if (b != null && b.containsKey("notFound")) {
+            String errorMessage = b.getString("notFound");
+            Toast.makeText(getApplicationContext(), errorMessage,
+                    Toast.LENGTH_LONG).show();
+        }
+
+        Button savedButton = (Button) findViewById(R.id.saved);
+        Button homeButton = (Button) findViewById(R.id.home);
+        Button descriptionButton = (Button) findViewById(R.id.description);
+
+        savedButton.setOnClickListener(savedButtonListener);
+        homeButton.setOnClickListener(homeButtonListener);
+        descriptionButton.setOnClickListener(descriptionButtonListener);
 
         Button addFlightButton = (Button) findViewById(R.id.addFlight);
         addFlightButton.setOnClickListener(addFlightButtonListener);
@@ -115,10 +127,10 @@ public class SearchActivity extends Activity {
                         String airline = ((EditText) findViewById(R.id.airlineInput)).getText().toString();
                         String google = "http://www.google.com/search?q=";
                         String search = "flightstats " + airline + " flight " + flightNumber;
-                        System.out.println(search);
                         String charset = "UTF-8";
                         String userAgent = "FlightBuddy";
                         String flightStatsBaseUrl = "http://www.flightstats.com/go/FlightStatus/flightStatusByFlight.do?airline=";
+                        String errorMessage = "Flight cannot be found";
 
                         Elements links = Jsoup.connect(google + URLEncoder.encode(search, charset)).userAgent(userAgent).get().select("li.g>h3>a");
                         String url = "";
@@ -137,7 +149,10 @@ public class SearchActivity extends Activity {
                             flightStatsUsed = true;
                         }
                         if (!flightStatsUsed) {
-                            System.out.println("Flight cannot be found");
+                            System.out.println(errorMessage);
+                            Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                            intent.putExtra("notFound", errorMessage);
+                            startActivity(intent);
                             return;
                         }
                         else {
@@ -150,12 +165,22 @@ public class SearchActivity extends Activity {
                                 status = "Delayed";
                             }
                             else if (status.equals("Unknown Flight")) {
-                                System.out.println("Flight cannot be found");
+                                System.out.println(errorMessage);
+                                Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                                intent.putExtra("notFound", errorMessage);
+                                startActivity(intent);
                                 return;
                             }
 
                             String routeInfo = doc.select("div.route").text();
                             String departureAirCity = routeInfo.split(" to ")[0].split(",")[0];
+                            if (!routeInfo.contains(" to ")) {
+                                System.out.println(errorMessage);
+                                Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                                intent.putExtra("notFound", errorMessage);
+                                startActivity(intent);
+                                return;
+                            }
                             String arrivalAirCity = routeInfo.split(" to ")[1].split(",")[0];
                             String departureAirport = departureAirCity.substring(0,5);
                             String departureCity = departureAirCity.substring(6);
@@ -218,9 +243,13 @@ public class SearchActivity extends Activity {
                             String arrivalWeather = arrivalWeatherElem.select(".uiComponentBody").get(2).text();
                             String arrivalConditions = arrivalWeather.split("Conditions:")[1].split("Temperature:")[0].trim();
                             String arrivalTemperature = arrivalWeather.split("Temperature:")[1].split("Dewpoint:")[0].trim();
+                            String flightDate = ((EditText) findViewById(R.id.dateInput)).getText().toString();
 
                             JSONObject searchInfo = new JSONObject();
                             searchInfo.put("status", status);
+                            searchInfo.put("flightDate", flightDate);
+                            searchInfo.put("flightNumber", flightNumber);
+                            searchInfo.put("airline", airline);
 
                             JSONArray departureArray = new JSONArray();
                             JSONObject departureInfo = new JSONObject();
@@ -248,7 +277,11 @@ public class SearchActivity extends Activity {
 
                             searchInfo.put("departureInfo", departureArray);
                             searchInfo.put("arrivalInfo", arrivalArray);
-                            System.out.println(searchInfo);
+
+                            Intent intent = new Intent(getApplicationContext(), DescriptionActivity.class);
+                            intent.putExtra("searchInfoJson", searchInfo.toString());
+                            startActivity(intent);
+
 
                             /*
                             System.out.println(departureAirport);
@@ -280,8 +313,41 @@ public class SearchActivity extends Activity {
                     }
                 }
             });
+            String flightNumber = ((EditText) findViewById(R.id.flightNumInput)).getText().toString();
+            String airline = ((EditText) findViewById(R.id.airlineInput)).getText().toString();
+            if (flightNumber.length() == 0) {
+                Toast.makeText(getApplicationContext(), "Must enter a valid flight number",
+                        Toast.LENGTH_SHORT).show();
+            }
+            else if (airline.length() == 0) {
+                Toast.makeText(getApplicationContext(), "Must enter a valid airline",
+                        Toast.LENGTH_SHORT).show();
+            }
+            else {
+                thread.start();
+            }
+        }
+    };
 
-            thread.start();
+    View.OnClickListener savedButtonListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(v.getContext(), SavedActivity.class);
+            startActivity(intent);
+        }
+    };
+    View.OnClickListener homeButtonListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(v.getContext(), HomeActivity.class);
+            startActivity(intent);
+        }
+    };
+    View.OnClickListener descriptionButtonListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(v.getContext(), DescriptionActivity.class);
+            startActivity(intent);
         }
     };
 }

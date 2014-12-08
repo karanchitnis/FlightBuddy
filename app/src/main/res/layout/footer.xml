@@ -16,20 +16,20 @@
         android:text="Home" />
 
     <Button
-        android:id="@+id/save"
+        android:id="@+id/saved"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:text="Save" />
+        android:text="Saved" />
 
     <Button
-        android:id="@+id/info"
+        android:id="@+id/description"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:text="Info" />
+        android:text="Description" />
 
     <Button
         android:id="@+id/search"
