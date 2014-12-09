@@ -5,15 +5,18 @@
     android:orientation="horizontal"
     android:layout_gravity="center" >
 
-    <Button
+    <ImageButton
         android:id="@+id/home"
-        style="?android:attr/buttonStyleSmall"
         android:layout_width="82dp"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_gravity="bottom"
-        android:text="Home"
+        android:src="@drawable/home"
+
+        />
+    <!--style="?android:attr/buttonStyleSmall
         android:textColor="#5DC4EB"
-        android:background="#FFFFFF"/>
+        android:background="#FFFFFF""-->
+
 
     <Button
         android:id="@+id/search"
