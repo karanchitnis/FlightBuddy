@@ -8,8 +8,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class HomeActivity extends Activity {
+
+    private String flightDate, departureTemperature, departureConditions,
+        departureAirport, departureEstimateTime, arrivalAirport, arrivalEstimateTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,12 +25,62 @@ public class HomeActivity extends Activity {
         setContentView(R.layout.activity_home);
 
         Button searchButton = (Button) findViewById(R.id.search);
+        Button homeToSearch = (Button) findViewById(R.id.homeToSearch);
         Button savedButton = (Button) findViewById(R.id.saved);
         Button descriptionButton = (Button) findViewById(R.id.description);
 
         searchButton.setOnClickListener(searchButtonListener);
+        homeToSearch.setOnClickListener(searchButtonListener);
         savedButton.setOnClickListener(savedButtonListener);
         descriptionButton.setOnClickListener(descriptionButtonListener);
+
+        SharedPreferences myPrefs = getSharedPreferences("myPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = myPrefs.edit();
+
+        TextView upcommingFlight = (TextView) findViewById(R.id.upcommingFlight);
+        if (myPrefs.getString("flightData", "").equals("")) {
+            //TODO: HOME PAGE IF THERE ARE NO SAVED ENTIRES
+            upcommingFlight.setText("No Flights Saved!");
+        }
+        else {
+            String flightDataIndex = myPrefs.getString("flightDataIndex", "0");
+            int index = Integer.parseInt(flightDataIndex);
+            String flightInfo = myPrefs.getString("flightData",  "").split("---")[index];
+            updateAttributes(flightInfo);
+            upcommingFlight.setText(upcommingFlight.getText() + " " + flightDate);
+            ImageView condition = (ImageView) findViewById(R.id.condition);
+            if (departureConditions.toLowerCase().contains("sun")) {
+                condition.setImageResource(R.drawable.sunny);
+            }
+            else if (departureConditions.toLowerCase().contains("cloud")) {
+                condition.setImageResource(R.drawable.cloudy);
+            }
+            else if (departureConditions.toLowerCase().contains("storm")) {
+                condition.setImageResource(R.drawable.stormy);
+            }
+            else if (departureConditions.toLowerCase().contains("snow")) {
+                condition.setImageResource(R.drawable.snowy);
+            }
+            else if (departureConditions.toLowerCase().contains("rain")) {
+                condition.setImageResource(R.drawable.rainy);
+            }
+            else if (departureConditions.toLowerCase().contains("fog")) {
+                condition.setImageResource(R.drawable.foggy);
+            }
+            else {
+                condition.setImageResource(R.drawable.cloudy);
+            }
+            TextView temperature = (TextView) findViewById(R.id.temperature);
+            temperature.setText(departureTemperature);
+            TextView depAirport = (TextView) findViewById(R.id.depAirport);
+            depAirport.setText(departureAirport);
+            TextView arrAirport = (TextView) findViewById(R.id.arrAirport);
+            arrAirport.setText(arrivalAirport);
+            TextView depTimes = (TextView) findViewById(R.id.depTimes);
+            depTimes.setText(departureEstimateTime);
+            TextView arrTimes = (TextView) findViewById(R.id.arrTimes);
+            arrTimes.setText(arrivalEstimateTime);
+        }
     }
 
     @Override
@@ -42,6 +100,27 @@ public class HomeActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void updateAttributes(String data) {
+        JSONObject json = null;
+        try {
+            json = new JSONObject(data);
+            flightDate = json.getString("flightDate");
+
+            JSONObject departureInfo = json.getJSONArray("departureInfo").getJSONObject(0);
+            departureTemperature = departureInfo.getString("temperature");
+            departureConditions = departureInfo.getString("conditions");
+            departureAirport = departureInfo.getString("airport");
+            departureEstimateTime = departureInfo.getString("estimateTime");
+
+            JSONObject arrivalInfo = json.getJSONArray("arrivalInfo").getJSONObject(0);
+            arrivalAirport = arrivalInfo.getString("airport");
+            arrivalEstimateTime = arrivalInfo.getString("estimateTime");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     View.OnClickListener searchButtonListener = new View.OnClickListener() {

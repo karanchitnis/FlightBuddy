@@ -1,41 +1,48 @@
-<?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="0dip"
     android:layout_weight="1"
-    android:gravity="bottom"
-    android:orientation="horizontal" >
+    android:orientation="horizontal"
+    android:layout_gravity="center" >
 
     <Button
         android:id="@+id/home"
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="82dp"
+        android:layout_height="40dp"
         android:layout_gravity="bottom"
-        android:text="Home" />
-
-    <Button
-        android:id="@+id/saved"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:text="Saved" />
-
-    <Button
-        android:id="@+id/description"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:text="Description" />
+        android:text="Home"
+        android:textColor="#5DC4EB"
+        android:background="#FFFFFF"/>
 
     <Button
         android:id="@+id/search"
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="82dp"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom|center"
+        android:text="Search"
+        android:textColor="#5DC4EB"
+        android:background="#FFFFFF"/>
+
+    <Button
+        android:id="@+id/description"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="82dp"
+        android:layout_height="40dp"
         android:layout_gravity="bottom"
-        android:text="Search" />
+        android:text="Description"
+        android:textColor="#5DC4EB"
+        android:background="#FFFFFF"/>
+
+    <Button
+        android:id="@+id/saved"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="82dp"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom"
+        android:text="Saved"
+        android:textColor="#5DC4EB"
+        android:background="#FFFFFF"/>
+
 </LinearLayout>

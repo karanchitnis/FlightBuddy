@@ -12,6 +12,7 @@ import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 /**
  * Created by Karan Chitnis on 12/7/2014.
@@ -109,8 +110,10 @@ public class DescriptionActivity extends Activity {
             arrivalGate = arrivalInfo.getString("gate");
             arrivalCity = arrivalInfo.getString("city");
 
-            TextView flightInfo = (TextView) findViewById(R.id.flightInfo);
-            flightInfo.setText(airline + " " + flightNumber + " - " + flightDate + "\n" + departureCity + " to " + arrivalCity);
+            TextView flightInfoDate = (TextView) findViewById(R.id.flightInfoDate);
+            flightInfoDate.setText(airline + " " + flightNumber + " - " + flightDate);
+            TextView cities = (TextView) findViewById(R.id.cities);
+            cities.setText(departureCity + " to " + arrivalCity);
             TextView leftCol = (TextView) findViewById(R.id.departureInfo);
             leftCol.setText(departureAirport + "\nScheduled:\n" + departureScheduleTime + "\nEstimated:\n" + departureEstimateTime + "\nGate:\n" + departureGate + "\nTerminal:\n" + departureTerminal);
             TextView rightCol = (TextView) findViewById(R.id.arrivalInfo);
