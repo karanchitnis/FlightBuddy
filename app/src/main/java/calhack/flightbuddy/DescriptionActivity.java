@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,10 +29,11 @@ public class DescriptionActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_description);
+        getWindow().setWindowAnimations(android.R.anim.slide_in_left);
 
         Button searchButton = (Button) findViewById(R.id.search);
         Button savedButton = (Button) findViewById(R.id.saved);
-        Button homeButton = (Button) findViewById(R.id.home);
+        ImageButton homeButton = (ImageButton) findViewById(R.id.home);
 
         searchButton.setOnClickListener(searchButtonListener);
         savedButton.setOnClickListener(savedButtonListener);
@@ -58,7 +60,6 @@ public class DescriptionActivity extends Activity {
                 }
                 editor.commit();
                 updateAttributes(searchData);
-                //TODO: CAN ACCESS ANY OF THE ATTRIBUTES ON TOP FROM ABOVE OVER HERE
             }
         }
         else { // When the user clicks the Description button.
@@ -70,9 +71,11 @@ public class DescriptionActivity extends Activity {
                 }
                 else {
                     int index = Integer.parseInt(flightDataIndex);
+                    if (index == myPrefs.getString("flightData",  "").split("---").length) {
+                        index -= 1;
+                    }
                     String displayFlight = flightData.split("---")[index];
                     updateAttributes(displayFlight);
-                    //TODO: CAN ACCESS ANY OF THE ATTRIBUTES ON TOP FROM ABOVE OVER HERE
                 }
             }
             else { // The user does NOT have any saved flights (cannot use attributes above)
@@ -147,10 +150,7 @@ public class DescriptionActivity extends Activity {
             arrGate.setText(arrivalGate);
             TextView arrTerminal = (TextView) findViewById(R.id.arrTerminal);
             arrTerminal.setText(arrivalTerminal);
-            /*System.out.println(status);
-            System.out.println(departureTemperature);
-            System.out.println(arrivalAirport);
-            System.out.println(flightDate);*/
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

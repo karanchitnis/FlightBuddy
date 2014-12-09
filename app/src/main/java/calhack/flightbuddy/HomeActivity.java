@@ -23,6 +23,7 @@ public class HomeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        getWindow().setWindowAnimations(android.R.anim.slide_in_left);
 
         Button searchButton = (Button) findViewById(R.id.search);
         Button homeToSearch = (Button) findViewById(R.id.homeToSearch);
@@ -39,12 +40,14 @@ public class HomeActivity extends Activity {
 
         TextView upcommingFlight = (TextView) findViewById(R.id.upcommingFlight);
         if (myPrefs.getString("flightData", "").equals("")) {
-            //TODO: HOME PAGE IF THERE ARE NO SAVED ENTIRES
             upcommingFlight.setText("No Flights Saved!");
         }
         else {
             String flightDataIndex = myPrefs.getString("flightDataIndex", "0");
             int index = Integer.parseInt(flightDataIndex);
+            if (index == myPrefs.getString("flightData",  "").split("---").length) {
+                index -= 1;
+            }
             String flightInfo = myPrefs.getString("flightData",  "").split("---")[index];
             updateAttributes(flightInfo);
             upcommingFlight.setText(upcommingFlight.getText() + " " + flightDate);
