@@ -139,45 +139,33 @@ public class SavedActivity extends Activity {
                     }
                 }
             }
-            /*TextView textFlight = ((TextView) findViewById(R.id.saved0));
-            String savedFlight0 = ((TextView) findViewById(R.id.saved0)).getText().toString();
-            String savedFlight1 = ((TextView) findViewById(R.id.saved1)).getText().toString();
-            String savedFlight2 = ((TextView) findViewById(R.id.saved2)).getText().toString();
-            String savedFlight3 = ((TextView) findViewById(R.id.saved3)).getText().toString();
-            String savedFlight4 = ((TextView) findViewById(R.id.saved4)).getText().toString();
-            if (savedFlight0.length() == 0){
-                textFlight = ((TextView) findViewById(R.id.saved0));
-            }
-            else if (savedFlight1.length() == 0){
-                textFlight = ((TextView) findViewById(R.id.saved1));
-            }
-            else if (savedFlight2.length() == 0){
-                textFlight = ((TextView) findViewById(R.id.saved2));
-            }
-            else if (savedFlight3.length() == 0){
-                textFlight = ((TextView) findViewById(R.id.saved3));
-            }
-            else if (savedFlight4.length() == 0){
-                textFlight = ((TextView) findViewById(R.id.saved4));
-            }
-            else {
-                textFlight = ((TextView) findViewById(R.id.saved5));
-            }*/
-
         }
-
-
-        /*String[] textArray={"one","two","asdasasdf asdf dsdaa"};
-        LinearLayout layout = (LinearLayout)findViewById(R.id.savedFlights);
-        for(int i = 0; i < textArray.length; i++)
-        {
-            TextView tv = new TextView(getApplicationContext());
-            tv.setText(textArray[i]);
-            layout.addView(tv);
-        }*/
     }
 
+    public void onClick(View v) {
+        SharedPreferences myPrefs = getSharedPreferences("myPrefs", MODE_PRIVATE);
+        if (!myPrefs.getString("flightData", "").equals("")) {
+            SharedPreferences.Editor editor = myPrefs.edit();
+            editor.remove("flightDataIndex");
+            if (v.getId() == R.id.savedLayout0) {
+                editor.putString("flightDataIndex", "0");
+            } else if (v.getId() == R.id.savedLayout1) {
+                editor.putString("flightDataIndex", "1");
+            } else if (v.getId() == R.id.savedLayout2) {
+                editor.putString("flightDataIndex", "2");
+            } else if (v.getId() == R.id.savedLayout3) {
+                editor.putString("flightDataIndex", "3");
+            } else if (v.getId() == R.id.savedLayout4) {
+                editor.putString("flightDataIndex", "4");
+            } else {
+                editor.putString("flightDataIndex", "5");
+            }
+            editor.commit();
 
+            Intent intent = new Intent(v.getContext(), DescriptionActivity.class);
+            startActivity(intent);
+        }
+    }
 
     View.OnClickListener searchButtonListener = new View.OnClickListener() {
         @Override
@@ -211,6 +199,7 @@ public class SavedActivity extends Activity {
                             SharedPreferences myPrefs = getSharedPreferences("myPrefs", MODE_PRIVATE);
                             SharedPreferences.Editor editor = myPrefs.edit();
                             editor.remove("flightData");
+                            editor.remove("flightDataIndex");
                             editor.commit();
                             Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                             startActivity(intent);

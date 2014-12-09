@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -144,8 +145,28 @@ public class SearchActivity extends Activity {
                                 break;
                             }
                         }
-                        if (airline.toLowerCase().equals("southwest") || airline.toLowerCase().equals("southwest airline") || airline.toLowerCase().equals("southwest airlines")) {
+                        if (airline.toLowerCase().contains("southwest")) {
                             url = "http://www.flightstats.com/go/FlightStatus/flightStatusByFlight.do?airline=(SWA)&flightNumber=" + flightNumber;
+                            flightStatsUsed = true;
+                        }
+                        if (airline.toLowerCase().contains("united airlines")) {
+                            url = "http://www.flightstats.com/go/FlightStatus/flightStatusByFlight.do?airline=(UA)&flightNumber=" + flightNumber;
+                            flightStatsUsed = true;
+                        }
+                        if (airline.toLowerCase().contains("new zealand")) {
+                            url = "http://www.flightstats.com/go/FlightStatus/flightStatusByFlight.do?airline=(NZ)&flightNumber=" + flightNumber;
+                            flightStatsUsed = true;
+                        }
+                        if (airline.toLowerCase().contains("delta air")) {
+                            url = "http://www.flightstats.com/go/FlightStatus/flightStatusByFlight.do?airline=(DL)&flightNumber=" + flightNumber;
+                            flightStatsUsed = true;
+                        }
+                        if (airline.toLowerCase().contains("american")) {
+                            url = "http://www.flightstats.com/go/FlightStatus/flightStatusByFlight.do?airline=(AA)&flightNumber=" + flightNumber;
+                            flightStatsUsed = true;
+                        }
+                        if (airline.toLowerCase().contains("blue")) {
+                            url = "http://www.flightstats.com/go/FlightStatus/flightStatusByFlight.do?airline=(B6)&flightNumber=" + flightNumber;
                             flightStatsUsed = true;
                         }
                         if (!flightStatsUsed) {
@@ -281,27 +302,6 @@ public class SearchActivity extends Activity {
                             Intent intent = new Intent(getApplicationContext(), DescriptionActivity.class);
                             intent.putExtra("searchInfoJson", searchInfo.toString());
                             startActivity(intent);
-
-
-                            /*
-                            System.out.println(departureAirport);
-                            System.out.println(departureCity);
-                            System.out.println(arrivalAirport);
-                            System.out.println(arrivalCity);
-                            System.out.println(status);
-                            System.out.println(departureGate);
-                            System.out.println(departureTerminal);
-                            System.out.println(departureScheduleTime);
-                            System.out.println(departureEstimateTime);
-                            System.out.println(arrivalGate);
-                            System.out.println(arrivalTerminal);
-                            System.out.println(arrivalScheduleTime);
-                            System.out.println(arrivalEstimateTime);
-                            System.out.println(departureConditions);
-                            System.out.println(departureTemperature);
-                            System.out.println(arrivalConditions);
-                            System.out.println(arrivalTemperature);
-                            */
                         }
 
                     } catch (UnsupportedEncodingException e) {
