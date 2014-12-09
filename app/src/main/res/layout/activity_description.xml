@@ -32,6 +32,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:text="laksdjf;klasjd"
+                android:textColor="#000000"
                 android:id="@+id/flightInfoDate"/>
 
             <TextView
@@ -39,6 +40,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:text="city"
+                android:textColor="#000000"
                 android:id="@+id/cities"/>
 
         </LinearLayout>
@@ -46,18 +48,138 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:background="#FFFFFF" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Status: "
+                    android:textSize="20dp"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="sk;lajdfklasjdf"
+                    android:textSize="20dp"
+                    android:textColor="#000000"
+                    android:id="@+id/status" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
 
             <LinearLayout
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:gravity="left">
+                android:gravity="left"
+                android:background="#FFFFFF" >
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/departureInfo" />
+                    android:textSize="20dp"
+                    android:textColor="#000000"
+                    android:paddingBottom="7dp"
+                    android:id="@+id/depAirport" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Scheduled:"
+                    android:textSize="17dp"
+                    android:textColor="#000000"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:paddingBottom="7dp"
+                    android:id="@+id/depScheduled" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Estimated:"
+                    android:textSize="17dp"
+                    android:textColor="#000000"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:paddingBottom="7dp"
+                    android:id="@+id/depEstimated" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Gate:"
+                    android:textColor="#000000"
+                    android:textSize="17dp"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:paddingBottom="7dp"
+                    android:id="@+id/depGate" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Terminal:"
+                    android:textColor="#000000"
+                    android:textSize="17dp"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:paddingBottom="7dp"
+                    android:id="@+id/depTerminal" />
 
             </LinearLayout>
 
@@ -65,12 +187,100 @@
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:gravity="right" >
+                android:gravity="right"
+                android:background="#FFFFFF" >
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/arrivalInfo" />
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="#000000"
+                    android:paddingBottom="7dp"
+                    android:id="@+id/arrAirport" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Scheduled:"
+                    android:textSize="17dp"
+                    android:textColor="#000000"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:paddingBottom="7dp"
+                    android:id="@+id/arrScheduled" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Estimated:"
+                    android:textSize="17dp"
+                    android:textColor="#000000"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:paddingBottom="7dp"
+                    android:id="@+id/arrEstimated" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Gate:"
+                    android:textColor="#000000"
+                    android:textSize="17dp"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:paddingBottom="7dp"
+                    android:id="@+id/arrGate" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Terminal:"
+                    android:textColor="#000000"
+                    android:textSize="17dp"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:paddingBottom="7dp"
+                    android:id="@+id/arrTerminal" />
 
             </LinearLayout>
 

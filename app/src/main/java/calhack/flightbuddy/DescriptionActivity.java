@@ -3,6 +3,7 @@ package calhack.flightbuddy;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -114,11 +115,38 @@ public class DescriptionActivity extends Activity {
             flightInfoDate.setText(airline + " " + flightNumber + " - " + flightDate);
             TextView cities = (TextView) findViewById(R.id.cities);
             cities.setText(departureCity + " to " + arrivalCity);
-            TextView leftCol = (TextView) findViewById(R.id.departureInfo);
-            leftCol.setText(departureAirport + "\nScheduled:\n" + departureScheduleTime + "\nEstimated:\n" + departureEstimateTime + "\nGate:\n" + departureGate + "\nTerminal:\n" + departureTerminal);
-            TextView rightCol = (TextView) findViewById(R.id.arrivalInfo);
-            rightCol.setText(arrivalAirport + "\nScheduled:\n" + arrivalScheduleTime + "\nEstimated:\n" + arrivalEstimateTime + "\nGate:\n" + arrivalGate + "\nTerminal:\n" + arrivalTerminal);
+            TextView stat = (TextView) findViewById(R.id.status);
+            if (status.toLowerCase().contains("on-time")) {
+                stat.setTextColor(Color.GREEN);
+            }
+            else if (status.toLowerCase().contains("delay")) {
+                stat.setTextColor(Color.RED);
+            }
+            else {
+                stat.setTextColor(Color.BLACK);
+            }
+            stat.setText(status);
+            TextView depAirport = (TextView) findViewById(R.id.depAirport);
+            depAirport.setText(departureAirport);
+            TextView depSchedule = (TextView) findViewById(R.id.depScheduled);
+            depSchedule.setText(departureScheduleTime);
+            TextView depEstimate = (TextView) findViewById(R.id.depEstimated);
+            depEstimate.setText(departureEstimateTime);
+            TextView depGate = (TextView) findViewById(R.id.depGate);
+            depGate.setText(departureGate);
+            TextView depTerminal = (TextView) findViewById(R.id.depTerminal);
+            depTerminal.setText(departureTerminal);
 
+            TextView arrAirport = (TextView) findViewById(R.id.arrAirport);
+            arrAirport.setText(arrivalAirport);
+            TextView arrSchedule = (TextView) findViewById(R.id.arrScheduled);
+            arrSchedule.setText(arrivalScheduleTime);
+            TextView arrEstimate = (TextView) findViewById(R.id.arrEstimated);
+            arrEstimate.setText(arrivalEstimateTime);
+            TextView arrGate = (TextView) findViewById(R.id.arrGate);
+            arrGate.setText(arrivalGate);
+            TextView arrTerminal = (TextView) findViewById(R.id.arrTerminal);
+            arrTerminal.setText(arrivalTerminal);
             /*System.out.println(status);
             System.out.println(departureTemperature);
             System.out.println(arrivalAirport);
