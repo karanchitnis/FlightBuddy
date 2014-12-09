@@ -56,9 +56,9 @@ public class SearchActivity extends Activity {
                     Toast.LENGTH_LONG).show();
         }
 
-        Button savedButton = (Button) findViewById(R.id.saved);
+        ImageButton savedButton = (ImageButton) findViewById(R.id.saved);
         ImageButton homeButton = (ImageButton) findViewById(R.id.home);
-        Button descriptionButton = (Button) findViewById(R.id.description);
+        ImageButton descriptionButton = (ImageButton) findViewById(R.id.description);
 
         savedButton.setOnClickListener(savedButtonListener);
         homeButton.setOnClickListener(homeButtonListener);

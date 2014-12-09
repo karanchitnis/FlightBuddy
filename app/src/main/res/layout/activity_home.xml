@@ -2,13 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
+
     android:orientation="vertical"
     tools:context=".Home"
-    android:background="#DEDEDE">
+    android:background="#DEDEDE"
+    android:minHeight="0dp"
+    android:minWidth="0dp">
 
     <View
         android:layout_width="fill_parent"
@@ -20,7 +19,7 @@
         android:layout_height="550dp"
         android:gravity="bottom"
         android:orientation="vertical"
-        android:paddingBottom="10dp" >
+        android:paddingBottom="20dp" >
 
         <include layout="@layout/header"/>
         <LinearLayout
@@ -30,10 +29,11 @@
             android:orientation="vertical" >
             <TextView
                 android:id="@+id/welcome"
-                android:layout_width="match_parent"
+                android:layout_width="348dp"
                 android:layout_height="50dp"
                 android:layout_gravity="top"
                 android:text="Welcome!"
+                android:layout_marginLeft="6dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="0dp"
                 android:textSize="30dp"
@@ -41,8 +41,9 @@
                 android:background="#FFFFFF" />
             <ImageView
                 android:id="@+id/condition"
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_width="348dp"
+                android:layout_marginLeft="4dp"
+                android:layout_height="100dp"
                 android:maxWidth="120dp"
                 android:maxHeight="120dp"
                 android:layout_gravity="right"
@@ -51,8 +52,9 @@
                 android:background="#FFFFFF" />
             <TextView
                 android:id="@+id/temperature"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_width="348dp"
+                android:layout_marginLeft="6dp"
+                android:layout_height="30dp"
                 android:paddingLeft="0dp"
                 android:paddingRight="10dp"
                 android:gravity="right"
@@ -69,9 +71,9 @@
             <TextView
                 android:id="@+id/upcommingFlight"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:layout_gravity="bottom"
-                android:text="Upcomming Flight:"
+                android:text="Upcoming Flight:"
                 android:paddingLeft="10dp"
                 android:paddingRight="0dp"
                 android:textSize="20dp"
@@ -137,7 +139,7 @@
             <Button
                 android:id="@+id/homeToSearch"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="70dp"
                 android:layout_gravity="center_horizontal|center"
                 android:background="#FFFFFF"
                 android:text="Search for a Flight!"

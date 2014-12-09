@@ -3,7 +3,8 @@
     android:layout_height="0dip"
     android:layout_weight="1"
     android:orientation="horizontal"
-    android:layout_gravity="center" >
+    android:layout_gravity="center"
+    android:padding="0dp">
 
     <ImageButton
         android:id="@+id/home"
@@ -11,41 +12,44 @@
         android:layout_height="50dp"
         android:layout_gravity="bottom"
         android:src="@drawable/home"
+        android:background="#FFFFFF"
+        android:layout_margin="-8dp"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
 
         />
-    <!--style="?android:attr/buttonStyleSmall
-        android:textColor="#5DC4EB"
-        android:background="#FFFFFF""-->
-
-
-    <Button
-        android:id="@+id/search"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="82dp"
-        android:layout_height="40dp"
-        android:layout_gravity="bottom|center"
-        android:text="Search"
-        android:textColor="#5DC4EB"
-        android:background="#FFFFFF"/>
-
-    <Button
+    <ImageButton
         android:id="@+id/description"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="82dp"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_gravity="bottom"
-        android:text="Description"
-        android:textColor="#5DC4EB"
-        android:background="#FFFFFF"/>
+        android:src="@drawable/flightinfo"
+        android:background="#FFFFFF"
+        />
 
-    <Button
+    <ImageButton
         android:id="@+id/saved"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="82dp"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_gravity="bottom"
-        android:text="Saved"
-        android:textColor="#5DC4EB"
-        android:background="#FFFFFF"/>
+        android:src="@drawable/bookmark"
+        android:background="#FFFFFF"
+        />
+
+    <ImageButton
+        android:id="@+id/search"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="82dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom|center"
+        android:src="@drawable/search"
+        android:background="#FFFFFF"
+        />
+
+
+
+
 
 </LinearLayout>
