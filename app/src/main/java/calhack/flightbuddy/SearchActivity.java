@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -57,9 +58,12 @@ public class SearchActivity extends Activity {
                     Toast.LENGTH_LONG).show();
         }
 
-        Button savedButton = (Button) findViewById(R.id.saved);
+        ImageButton savedButton = (ImageButton) findViewById(R.id.saved);
         ImageButton homeButton = (ImageButton) findViewById(R.id.home);
-        Button descriptionButton = (Button) findViewById(R.id.description);
+        ImageButton descriptionButton = (ImageButton) findViewById(R.id.description);
+        ImageButton searchButton = (ImageButton) findViewById(R.id.search);
+
+        searchButton.setBackgroundColor(Color.parseColor("#E8DDCB"));
 
         savedButton.setOnClickListener(savedButtonListener);
         homeButton.setOnClickListener(homeButtonListener);

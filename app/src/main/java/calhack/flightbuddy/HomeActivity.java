@@ -3,11 +3,14 @@ package calhack.flightbuddy;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,10 +28,14 @@ public class HomeActivity extends Activity {
         setContentView(R.layout.activity_home);
         getWindow().setWindowAnimations(android.R.anim.slide_in_left);
 
-        Button searchButton = (Button) findViewById(R.id.search);
+
+        ImageButton searchButton = (ImageButton) findViewById(R.id.search);
         Button homeToSearch = (Button) findViewById(R.id.homeToSearch);
-        Button savedButton = (Button) findViewById(R.id.saved);
-        Button descriptionButton = (Button) findViewById(R.id.description);
+        ImageButton savedButton = (ImageButton) findViewById(R.id.saved);
+        ImageButton descriptionButton = (ImageButton) findViewById(R.id.description);
+        ImageButton homeButton = (ImageButton) findViewById(R.id.home);
+
+        homeButton.setBackgroundColor(Color.parseColor("#E8DDCB"));
 
         searchButton.setOnClickListener(searchButtonListener);
         homeToSearch.setOnClickListener(searchButtonListener);

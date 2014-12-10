@@ -2,13 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
+
     android:orientation="vertical"
     tools:context=".Home"
-    android:background="#DEDEDE">
+    android:background="#DEDEDE"
+    android:minHeight="0dp"
+    android:minWidth="0dp">
 
     <View
         android:layout_width="fill_parent"
@@ -17,32 +16,38 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="550dp"
+        android:layout_height="640dp"
         android:gravity="bottom"
         android:orientation="vertical"
-        android:paddingBottom="10dp" >
+        android:paddingBottom="0dp" >
 
         <include layout="@layout/header"/>
         <LinearLayout
-            android:layout_width="fill_parent"
+            android:layout_width="355dp"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+
+            >
             <TextView
                 android:id="@+id/welcome"
-                android:layout_width="match_parent"
+                android:layout_width="355dp"
                 android:layout_height="50dp"
                 android:layout_gravity="top"
                 android:text="Welcome!"
+                android:layout_marginLeft="6dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="0dp"
                 android:textSize="30dp"
                 android:textColor="#000000"
-                android:background="#FFFFFF" />
+                android:background="#FFFFFF"
+
+                />
             <ImageView
                 android:id="@+id/condition"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_marginLeft="6dp"
+                android:layout_height="130dp"
                 android:maxWidth="120dp"
                 android:maxHeight="120dp"
                 android:layout_gravity="right"
@@ -51,8 +56,9 @@
                 android:background="#FFFFFF" />
             <TextView
                 android:id="@+id/temperature"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_width="348dp"
+                android:layout_marginLeft="6dp"
+                android:layout_height="30dp"
                 android:paddingLeft="0dp"
                 android:paddingRight="10dp"
                 android:gravity="right"
@@ -80,10 +86,11 @@
             android:orientation="vertical">
             <TextView
                 android:id="@+id/upcommingFlight"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_width="350dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="5dp"
                 android:layout_gravity="bottom"
-                android:text="Upcomming Flight:"
+                android:text="Upcoming Flight:"
                 android:paddingLeft="10dp"
                 android:paddingRight="0dp"
                 android:textSize="20dp"
@@ -92,7 +99,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginLeft="5dp">
                 <TextView
                     android:id="@+id/depAirport"
                     android:layout_width="168dp"
@@ -105,7 +113,7 @@
                     android:background="#FFFFFF" />
                 <TextView
                     android:id="@+id/arrAirport"
-                    android:layout_width="168dp"
+                    android:layout_width="180dp"
                     android:layout_height="35dp"
                     android:paddingLeft="0dp"
                     android:paddingRight="10dp"
@@ -115,9 +123,10 @@
                     android:background="#FFFFFF" />
             </LinearLayout>
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="360dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginLeft="5dp">
 
                 <TextView
                     android:id="@+id/depTimes"
@@ -131,7 +140,7 @@
                     android:background="#FFFFFF" />
                 <TextView
                     android:id="@+id/arrTimes"
-                    android:layout_width="168dp"
+                    android:layout_width="180dp"
                     android:layout_height="35dp"
                     android:paddingLeft="0dp"
                     android:paddingRight="10dp"
@@ -142,7 +151,6 @@
             </LinearLayout>
 
         </LinearLayout>
-
 
         <include layout="@layout/footer"/>
     </LinearLayout>
