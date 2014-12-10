@@ -28,7 +28,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="laksdjf;klasjd"
                 android:textColor="#000000"
                 android:id="@+id/flightInfoDate"/>
 
@@ -36,7 +35,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="city"
                 android:textColor="#000000"
                 android:id="@+id/cities"/>
 
@@ -65,7 +63,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="sk;lajdfklasjdf"
                     android:textSize="20dp"
                     android:textColor="#000000"
                     android:id="@+id/status" />
@@ -84,6 +81,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="left"
+                android:paddingLeft="5dp"
+                android:paddingRight="0dp"
                 android:background="#FFFFFF" >
 
                 <TextView

@@ -6,15 +6,11 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 /**
  * Created by Karan Chitnis on 12/7/2014.
@@ -31,18 +27,12 @@ public class DescriptionActivity extends Activity {
         setContentView(R.layout.activity_description);
         getWindow().setWindowAnimations(android.R.anim.slide_in_left);
 
-<<<<<<< Updated upstream
-        Button searchButton = (Button) findViewById(R.id.search);
-        Button savedButton = (Button) findViewById(R.id.saved);
-        ImageButton homeButton = (ImageButton) findViewById(R.id.home);
-=======
         ImageButton searchButton = (ImageButton) findViewById(R.id.search);
         ImageButton savedButton = (ImageButton) findViewById(R.id.saved);
         ImageButton homeButton = (ImageButton) findViewById(R.id.home);
         ImageButton descriptionButton = (ImageButton) findViewById(R.id.description);
 
         descriptionButton.setBackgroundColor(Color.parseColor("#E8DDCB"));
->>>>>>> Stashed changes
 
         searchButton.setOnClickListener(searchButtonListener);
         savedButton.setOnClickListener(savedButtonListener);
@@ -70,26 +60,23 @@ public class DescriptionActivity extends Activity {
                 editor.commit();
                 updateAttributes(searchData);
             }
-        }
-        else { // When the user clicks the Description button.
+        } else { // When the user clicks the Description button.
             String flightDataIndex = myPrefs.getString("flightDataIndex", "0");
             String flightData = myPrefs.getString("flightData", "");
             if (flightData.length() > 0) { // There is already a saved result (use attributes above)
                 if (!flightData.contains("---")) {
                     updateAttributes(flightData);
-                }
-                else {
+                } else {
                     int index = Integer.parseInt(flightDataIndex);
-                    if (index == myPrefs.getString("flightData",  "").split("---").length) {
+                    if (index == myPrefs.getString("flightData", "").split("---").length) {
                         index -= 1;
                     }
                     String displayFlight = flightData.split("---")[index];
                     updateAttributes(displayFlight);
                 }
-            }
-            else { // The user does NOT have any saved flights (cannot use attributes above)
-                TextView title = (TextView) findViewById(R.id.title);
-                title.setText("NO FLIGHT DETAILS");
+            } else { // The user does NOT have any saved flights (cannot use attributes above)
+                TextView stat = (TextView) findViewById(R.id.status);
+                stat.setText("No Flight Details!");
             }
         }
     }

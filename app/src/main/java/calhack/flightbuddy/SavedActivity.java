@@ -26,18 +26,12 @@ public class SavedActivity extends Activity {
         setContentView(R.layout.activity_saved);
         getWindow().setWindowAnimations(android.R.anim.slide_in_left);
 
-<<<<<<< Updated upstream
-        Button searchButton = (Button) findViewById(R.id.search);
-        ImageButton homeButton = (ImageButton) findViewById(R.id.home);
-        Button descriptionButton = (Button) findViewById(R.id.description);
-=======
         ImageButton searchButton = (ImageButton) findViewById(R.id.search);
         ImageButton homeButton = (ImageButton) findViewById(R.id.home);
         ImageButton descriptionButton = (ImageButton) findViewById(R.id.description);
         ImageButton savedButton = (ImageButton) findViewById(R.id.saved);
 
         savedButton.setBackgroundColor(Color.parseColor("#E8DDCB"));
->>>>>>> Stashed changes
 
         searchButton.setOnClickListener(searchButtonListener);
         homeButton.setOnClickListener(homeButtonListener);
@@ -134,6 +128,10 @@ public class SavedActivity extends Activity {
                     }
                 }
             }
+        }
+        else {
+            clearButton.setText("Add a flight!");
+            clearButton.setOnClickListener(searchButtonListener);
         }
     }
 

@@ -12,7 +12,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="450dp"
         android:gravity="bottom"
         android:orientation="vertical"
         android:paddingBottom="10dp" >
@@ -28,8 +28,9 @@
                 android:id="@+id/clear"
                 android:text="Clear"
                 android:gravity="right"
+                android:textSize="17dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="50dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -42,6 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="onClick"
+                android:padding="5dp"
                 android:clickable="true"
                 android:orientation="vertical"
                 android:id="@+id/savedLayout0" >
@@ -55,7 +57,6 @@
                 <TextView
                     android:id="@+id/saved0Times"
                     android:textColor="#000000"
-                    android:paddingBottom="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -83,7 +84,6 @@
                     android:layout_height="wrap_content" />
                 <TextView
                     android:id="@+id/saved1Times"
-                    android:paddingBottom="10dp"
                     android:textColor="#000000"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -112,7 +112,6 @@
                     android:layout_height="wrap_content" />
                 <TextView
                     android:id="@+id/saved2Times"
-                    android:paddingBottom="10dp"
                     android:layout_width="match_parent"
                     android:textColor="#000000"
                     android:layout_height="wrap_content" />
@@ -141,7 +140,6 @@
                     android:layout_height="wrap_content" />
                 <TextView
                     android:id="@+id/saved3Times"
-                    android:paddingBottom="10dp"
                     android:textColor="#000000"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -170,7 +168,6 @@
                     android:layout_height="wrap_content" />
                 <TextView
                     android:id="@+id/saved4Times"
-                    android:paddingBottom="10dp"
                     android:textColor="#000000"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -199,7 +196,6 @@
                     android:layout_height="wrap_content" />
                 <TextView
                     android:id="@+id/saved5Times"
-                    android:paddingBottom="10dp"
                     android:textColor="#000000"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
