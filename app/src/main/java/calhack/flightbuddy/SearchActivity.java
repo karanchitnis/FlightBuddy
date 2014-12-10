@@ -540,7 +540,7 @@ public class SearchActivity extends Activity {
         simpleTextCard = new SimpleTextCard("statusCard");
         simpleTextCard.setHeaderText("Status");
         String[] messagesToShow2 = {"Estimated Departure Time: " + "12:00",
-                                    "Departure Gate: " + "61B",
+                                    "Departure Gate: " + "15",
                                     "Departure Terminal: " + "9 3/4"};
         simpleTextCard.setMessageText(messagesToShow2);
         simpleTextCard.setReceivingEvents(false);
