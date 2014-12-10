@@ -58,7 +58,8 @@ public class SearchActivity extends Activity {
     private CardImage[] mCardImages;
     private RemoteResourceStore mRemoteResourceStore;
     private boolean cardExist;
-    private Button saveToqB;
+    private String status, departureConditions, departureTemperature, departureEstimateTime,
+        departureGate, departureTerminal = "";
 
 
     @Override
@@ -66,6 +67,7 @@ public class SearchActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         getWindow().setWindowAnimations(android.R.anim.slide_in_left);
+
 
         dateView = (EditText) findViewById(R.id.dateInput);
         calendar = Calendar.getInstance();
@@ -217,7 +219,7 @@ public class SearchActivity extends Activity {
                         }
                         else {
                             Document doc = Jsoup.connect(url).userAgent(userAgent).get();
-                            String status = doc.select("div.statusType").text();
+                            status = doc.select("div.statusType").text();
                             if (status.equals("En-Route - On-time")) {
                                 status = "On-time";
                             }
@@ -254,8 +256,8 @@ public class SearchActivity extends Activity {
 
                             Element departure = Jsoup.connect(departureUrl).userAgent(userAgent).get();
                             String departureGateandTerm = departure.select("div.statusBlockInnerDiv.halfWidthInnerDiv").text().trim();
-                            String departureGate = "N/A";
-                            String departureTerminal = "N/A";
+                            departureGate = "N/A";
+                            departureTerminal = "N/A";
                             if (departureGateandTerm.contains("Gate:") && departureGateandTerm.contains("Terminal")) {
                                 departureGate = departureGateandTerm.split("Gate:")[1].split("\\s+")[1];
                                 departureTerminal = departureGateandTerm.split("Terminal")[1].split("\\)")[0];
@@ -270,7 +272,7 @@ public class SearchActivity extends Activity {
                             }
 
                             String departureScheduleTime = departure.select("tr>td.statusValue").get(2).text().split(" - ")[0];
-                            String departureEstimateTime = departure.select("tr>td.statusValue").get(4).text().split(" - ")[0];
+                            departureEstimateTime = departure.select("tr>td.statusValue").get(4).text().split(" - ")[0];
 
                             Element arrival = Jsoup.connect(arrivalUrl).userAgent(userAgent).get();
                             String arrivalGateandTerm = arrival.select("div.statusBlockInnerDiv.halfWidthInnerDiv").text().trim();
@@ -295,8 +297,8 @@ public class SearchActivity extends Activity {
                             url = "http://www.flightstats.com/go/Airport/weather.do?airportCode=" + departureAirport.substring(1,departureAirport.length()-1);
                             Element departureWeatherElem = Jsoup.connect(url).userAgent(userAgent).get();
                             String departureWeather = departureWeatherElem.select(".uiComponentBody").get(2).text();
-                            String departureConditions = departureWeather.split("Conditions:")[1].split("Temperature:")[0].trim();
-                            String departureTemperature = departureWeather.split("Temperature:")[1].split("Dewpoint:")[0].trim();
+                            departureConditions = departureWeather.split("Conditions:")[1].split("Temperature:")[0].trim();
+                            departureTemperature = departureWeather.split("Temperature:")[1].split("Dewpoint:")[0].trim();
 
                             url = "http://www.flightstats.com/go/Airport/weather.do?airportCode=" + arrivalAirport.substring(1,arrivalAirport.length()-1);
                             Element arrivalWeatherElem = Jsoup.connect(url).userAgent(userAgent).get();
@@ -529,9 +531,9 @@ public class SearchActivity extends Activity {
 
         SimpleTextCard simpleTextCard = new SimpleTextCard("WeatherCard");
         simpleTextCard.setHeaderText("Weather");
-        simpleTextCard.setTitleText("Condition: " + "STOORRMMMYY");
-        simpleTextCard.setCardImage(mRemoteResourceStore, findImage("fog"));
-        String[] messagesToShow = {"Temperature: " + "100000 F"};
+        simpleTextCard.setTitleText("Condition: " + departureConditions);
+        simpleTextCard.setCardImage(mRemoteResourceStore, findImage(departureConditions));
+        String[] messagesToShow = {"Temperature: " + departureTemperature};
         simpleTextCard.setMessageText(messagesToShow);
         simpleTextCard.setReceivingEvents(false);
         simpleTextCard.setShowDivider(true);
@@ -539,9 +541,9 @@ public class SearchActivity extends Activity {
 
         simpleTextCard = new SimpleTextCard("statusCard");
         simpleTextCard.setHeaderText("Status");
-        String[] messagesToShow2 = {"Estimated Departure Time: " + "12:00",
-                                    "Departure Gate: " + "61B",
-                                    "Departure Terminal: " + "9 3/4"};
+        String[] messagesToShow2 = {"Estimated Departure Time: " + departureEstimateTime,
+                                    "Departure Gate: " + departureGate,
+                                    "Departure Terminal: " + departureTerminal};
         simpleTextCard.setMessageText(messagesToShow2);
         simpleTextCard.setReceivingEvents(false);
         simpleTextCard.setShowDivider(true);

@@ -43,6 +43,8 @@ public class SavedActivity extends Activity {
     private CardImage[] mCardImages;
     private RemoteResourceStore mRemoteResourceStore;
     private boolean cardExist;
+    private String status, departureConditions, departureTemperature, departureEstimateTime,
+            departureGate, departureTerminal = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -292,9 +294,9 @@ public class SavedActivity extends Activity {
 
         SimpleTextCard simpleTextCard = new SimpleTextCard("WeatherCard");
         simpleTextCard.setHeaderText("Weather");
-        simpleTextCard.setTitleText("Condition: " + "sunny");
-        simpleTextCard.setCardImage(mRemoteResourceStore, findImage("sunny"));
-        String[] messagesToShow = {"Temperature: " + "72F"};
+        simpleTextCard.setTitleText("Condition: " + departureConditions);
+        simpleTextCard.setCardImage(mRemoteResourceStore, findImage(departureConditions));
+        String[] messagesToShow = {"Temperature: " + departureTemperature};
         simpleTextCard.setMessageText(messagesToShow);
         simpleTextCard.setReceivingEvents(false);
         simpleTextCard.setShowDivider(true);
@@ -302,9 +304,9 @@ public class SavedActivity extends Activity {
 
         simpleTextCard = new SimpleTextCard("statusCard");
         simpleTextCard.setHeaderText("Status");
-        String[] messagesToShow2 = {"Estimated Departure Time: " + "12:00",
-                "Departure Gate: " + "61B",
-                "Departure Terminal: " + "9 3/4"};
+        String[] messagesToShow2 = {"Estimated Departure Time: " + departureEstimateTime,
+                "Departure Gate: " + departureGate,
+                "Departure Terminal: " + departureTerminal};
         simpleTextCard.setMessageText(messagesToShow2);
         simpleTextCard.setReceivingEvents(false);
         simpleTextCard.setShowDivider(true);
@@ -475,6 +477,12 @@ public class SavedActivity extends Activity {
             }
             editor.commit();
 
+            int index = Integer.parseInt(myPrefs.getString("flightDataIndex", "0"));
+            if (index == myPrefs.getString("flightData", "").split("---").length) {
+                index -= 1;
+            }
+            getToqData(myPrefs.getString("flightData", "").split("---")[index]);
+
             if (cardExist) {
                 updateCard();
             } else if (mRemoteDeckOfCards != null) {
@@ -489,6 +497,22 @@ public class SavedActivity extends Activity {
 
             Intent intent = new Intent(v.getContext(), DescriptionActivity.class);
             startActivity(intent);
+        }
+    }
+
+    public void getToqData(String data) {
+        JSONObject json = null;
+        try {
+            json = new JSONObject(data);
+            status = json.getString("status");
+            JSONObject departureInfo = json.getJSONArray("departureInfo").getJSONObject(0);
+            departureTemperature = departureInfo.getString("temperature");
+            departureConditions = departureInfo.getString("conditions");
+            departureEstimateTime = departureInfo.getString("estimateTime");
+            departureTerminal = departureInfo.getString("terminal");
+            departureGate = departureInfo.getString("gate");
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
