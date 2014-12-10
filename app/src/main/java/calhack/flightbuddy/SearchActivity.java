@@ -529,9 +529,9 @@ public class SearchActivity extends Activity {
 
         SimpleTextCard simpleTextCard = new SimpleTextCard("WeatherCard");
         simpleTextCard.setHeaderText("Weather");
-        simpleTextCard.setTitleText("Condition: " + "sunny");
-        simpleTextCard.setCardImage(mRemoteResourceStore, findImage("sunny"));
-        String[] messagesToShow = {"Temperature: " + "72F"};
+        simpleTextCard.setTitleText("Condition: " + "STOORRMMMYY");
+        simpleTextCard.setCardImage(mRemoteResourceStore, findImage("fog"));
+        String[] messagesToShow = {"Temperature: " + "100000 F"};
         simpleTextCard.setMessageText(messagesToShow);
         simpleTextCard.setReceivingEvents(false);
         simpleTextCard.setShowDivider(true);
