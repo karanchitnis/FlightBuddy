@@ -112,6 +112,7 @@ public class HomeActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+
     public void updateAttributes(String data) {
         JSONObject json = null;
         try {

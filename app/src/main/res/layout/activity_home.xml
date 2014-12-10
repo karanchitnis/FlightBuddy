@@ -66,7 +66,19 @@
                 android:textColor="#000000"
                 android:background="#FFFFFF" />
         </LinearLayout>
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp">
+            <Button
+                android:id="@+id/homeToSearch"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal|center"
+                android:background="#FFFFFF"
+                android:text="Search for a Flight!"
+                android:textSize="30dp"/>
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -140,22 +152,6 @@
                     android:background="#FFFFFF" />
             </LinearLayout>
 
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="360dp"
-            android:layout_height="wrap_content"
-            android:paddingBottom="10dp">
-            <Button
-                android:id="@+id/homeToSearch"
-                android:layout_width="345dp"
-                android:layout_marginLeft="5dp"
-                android:layout_height="70dp"
-                android:layout_gravity="center_horizontal|center"
-                android:background="#FFFFFF"
-                android:drawableLeft="@drawable/search"
-                android:drawableRight="@drawable/next"
-                android:text="Search for a Flight"
-                android:textSize="30dp"/>
         </LinearLayout>
 
         <include layout="@layout/footer"/>
