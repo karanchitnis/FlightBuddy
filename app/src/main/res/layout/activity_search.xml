@@ -121,6 +121,15 @@
                 android:drawableLeft="@drawable/add"
                 android:textSize="30dp"
                 android:background="@drawable/buttonshape" />
+            <Button
+            android:id="@+id/toqIns"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dip"
+            android:text="Toq"
+            android:drawableLeft="@drawable/add"
+            android:textSize="30dp"
+            android:background="@drawable/buttonshape" />
 
         </LinearLayout>
         <include layout="@layout/footer"/>
