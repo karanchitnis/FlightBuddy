@@ -101,8 +101,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
                     android:text="Scheduled:"
-                    android:textSize="17dp"
+                    android:textSize="12dp"
                     android:textColor="#000000"
                     android:paddingTop="7dp"
                     android:paddingBottom="7dp" />
@@ -110,8 +111,11 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
                     android:textColor="#000000"
                     android:paddingBottom="7dp"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
                     android:id="@+id/depScheduled" />
 
                 <View
@@ -123,7 +127,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Estimated:"
-                    android:textSize="17dp"
+                    android:textSize="12dp"
+                    android:layout_marginLeft="20dp"
                     android:textColor="#000000"
                     android:paddingTop="7dp"
                     android:paddingBottom="7dp" />
@@ -131,6 +136,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
                     android:textColor="#000000"
                     android:paddingBottom="7dp"
                     android:id="@+id/depEstimated" />
@@ -143,16 +151,20 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
                     android:text="Gate:"
                     android:textColor="#000000"
-                    android:textSize="17dp"
+                    android:textSize="12dp"
                     android:paddingTop="7dp"
                     android:paddingBottom="7dp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
                     android:textColor="#000000"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
                     android:paddingBottom="7dp"
                     android:id="@+id/depGate" />
 
@@ -165,14 +177,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Terminal:"
+                    android:layout_marginLeft="20dp"
                     android:textColor="#000000"
-                    android:textSize="17dp"
+                    android:textSize="12dp"
                     android:paddingTop="7dp"
                     android:paddingBottom="7dp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
                     android:textColor="#000000"
                     android:paddingBottom="7dp"
                     android:id="@+id/depTerminal" />
@@ -203,7 +219,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Scheduled:"
-                    android:textSize="17dp"
+                    android:textSize="12dp"
                     android:textColor="#000000"
                     android:paddingTop="7dp"
                     android:paddingBottom="7dp" />
@@ -213,6 +229,8 @@
                     android:layout_height="wrap_content"
                     android:textColor="#000000"
                     android:paddingBottom="7dp"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
                     android:id="@+id/arrScheduled" />
 
                 <View
@@ -224,7 +242,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Estimated:"
-                    android:textSize="17dp"
+                    android:textSize="12dp"
                     android:textColor="#000000"
                     android:paddingTop="7dp"
                     android:paddingBottom="7dp" />
@@ -233,6 +251,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#000000"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
                     android:paddingBottom="7dp"
                     android:id="@+id/arrEstimated" />
 
@@ -246,7 +266,7 @@
                     android:layout_height="wrap_content"
                     android:text="Gate:"
                     android:textColor="#000000"
-                    android:textSize="17dp"
+                    android:textSize="12dp"
                     android:paddingTop="7dp"
                     android:paddingBottom="7dp" />
 
@@ -254,6 +274,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#000000"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
                     android:paddingBottom="7dp"
                     android:id="@+id/arrGate" />
 
@@ -267,7 +289,7 @@
                     android:layout_height="wrap_content"
                     android:text="Terminal:"
                     android:textColor="#000000"
-                    android:textSize="17dp"
+                    android:textSize="12dp"
                     android:paddingTop="7dp"
                     android:paddingBottom="7dp" />
 
@@ -276,6 +298,8 @@
                     android:layout_height="wrap_content"
                     android:textColor="#000000"
                     android:paddingBottom="7dp"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
                     android:id="@+id/arrTerminal" />
 
             </LinearLayout>
