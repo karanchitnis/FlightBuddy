@@ -31,8 +31,9 @@
             >
             <TextView
                 android:id="@+id/welcome"
-                android:layout_width="355dp"
+                android:layout_width="350dp"
                 android:layout_height="50dp"
+                android:layout_marginRight="2dp"
                 android:layout_gravity="top"
                 android:text="Welcome!"
                 android:layout_marginLeft="6dp"
@@ -47,6 +48,7 @@
                 android:id="@+id/condition"
                 android:layout_width="match_parent"
                 android:layout_marginLeft="6dp"
+                android:layout_marginRight="0.5dp"
                 android:layout_height="130dp"
                 android:maxWidth="120dp"
                 android:maxHeight="120dp"
@@ -69,15 +71,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dp">
-            <Button
-                android:id="@+id/homeToSearch"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_gravity="center_horizontal|center"
-                android:background="#FFFFFF"
-                android:text="Search for a Flight!"
-                android:textSize="30dp"/>
+            android:paddingBottom="0dp">
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -86,7 +80,7 @@
             android:orientation="vertical">
             <TextView
                 android:id="@+id/upcommingFlight"
-                android:layout_width="350dp"
+                android:layout_width="348dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="5dp"
                 android:layout_gravity="bottom"
@@ -153,6 +147,22 @@
             </LinearLayout>
 
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp">
+            <Button
+                android:id="@+id/homeToSearch"
+                android:layout_width="348dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="5dp"
+                android:layout_gravity="center_horizontal|center"
+                android:drawableLeft="@drawable/search"
+                android:drawableRight="@drawable/next"
+                android:background="#FFFFFF"
+                android:text="Search for a Flight"
+                android:textSize="30dp"/>
+            </LinearLayout>
 
         <include layout="@layout/footer"/>
     </LinearLayout>
