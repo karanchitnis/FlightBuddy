@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,6 +42,7 @@ public class SearchActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        getWindow().setWindowAnimations(android.R.anim.slide_in_left);
 
         dateView = (EditText) findViewById(R.id.dateInput);
         calendar = Calendar.getInstance();
@@ -59,6 +61,9 @@ public class SearchActivity extends Activity {
         ImageButton savedButton = (ImageButton) findViewById(R.id.saved);
         ImageButton homeButton = (ImageButton) findViewById(R.id.home);
         ImageButton descriptionButton = (ImageButton) findViewById(R.id.description);
+        ImageButton searchButton = (ImageButton) findViewById(R.id.search);
+
+        searchButton.setBackgroundColor(Color.parseColor("#E8DDCB"));
 
         savedButton.setOnClickListener(savedButtonListener);
         homeButton.setOnClickListener(homeButtonListener);

@@ -5,13 +5,14 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -23,10 +24,20 @@ public class SavedActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved);
+        getWindow().setWindowAnimations(android.R.anim.slide_in_left);
 
+<<<<<<< Updated upstream
         Button searchButton = (Button) findViewById(R.id.search);
-        Button homeButton = (Button) findViewById(R.id.home);
+        ImageButton homeButton = (ImageButton) findViewById(R.id.home);
         Button descriptionButton = (Button) findViewById(R.id.description);
+=======
+        ImageButton searchButton = (ImageButton) findViewById(R.id.search);
+        ImageButton homeButton = (ImageButton) findViewById(R.id.home);
+        ImageButton descriptionButton = (ImageButton) findViewById(R.id.description);
+        ImageButton savedButton = (ImageButton) findViewById(R.id.saved);
+
+        savedButton.setBackgroundColor(Color.parseColor("#E8DDCB"));
+>>>>>>> Stashed changes
 
         searchButton.setOnClickListener(searchButtonListener);
         homeButton.setOnClickListener(homeButtonListener);
@@ -37,44 +48,28 @@ public class SavedActivity extends Activity {
 
         SharedPreferences myPrefs = getSharedPreferences("myPrefs", MODE_PRIVATE);
         String flightData = myPrefs.getString("flightData", "");
+        System.out.println(flightData);
         if (flightData.length() > 0) {
             if (!flightData.contains("---")) {
                 JSONObject json = null;
                 try {
+                    setBackgroundColorLayout(0);
                     json = new JSONObject(flightData);
-                    String status = json.getString("status");
-                    String flightNumber = json.getString("flightNumber");
-                    String airline = json.getString("airline");
                     String flightDate = json.getString("flightDate");
 
                     JSONObject departureInfo = json.getJSONArray("departureInfo").getJSONObject(0);
-                    String departureTemperature = departureInfo.getString("temperature");
-                    String departureConditions = departureInfo.getString("conditions");
                     String departureAirport = departureInfo.getString("airport");
                     String departureEstimateTime = departureInfo.getString("estimateTime");
-                    String departureTerminal = departureInfo.getString("terminal");
-                    String departureScheduleTime = departureInfo.getString("scheduleTime");
-                    String departureGate = departureInfo.getString("gate");
-                    String departureCity = departureInfo.getString("city");
 
                     JSONObject arrivalInfo = json.getJSONArray("arrivalInfo").getJSONObject(0);
-                    String arrivalTemperature = arrivalInfo.getString("temperature");
-                    String arrivalConditions = arrivalInfo.getString("conditions");
                     String arrivalAirport = arrivalInfo.getString("airport");
                     String arrivalEstimateTime = arrivalInfo.getString("estimateTime");
-                    String arrivalTerminal = arrivalInfo.getString("terminal");
-                    String arrivalScheduleTime = arrivalInfo.getString("scheduleTime");
-                    String arrivalGate = arrivalInfo.getString("gate");
-                    String arrivalCity = arrivalInfo.getString("city");
 
                     TextView textFlight = ((TextView) findViewById(R.id.saved0));
                     TextView textFlightTimes = ((TextView) findViewById(R.id.saved0Times));
                     textFlight.setText(departureAirport + " to " + arrivalAirport);
                     textFlightTimes.setText(departureEstimateTime + " to " + arrivalEstimateTime + " on " + flightDate);
 
-                    System.out.println(status);
-                    System.out.println(departureTemperature);
-                    System.out.println(arrivalAirport);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -82,6 +77,7 @@ public class SavedActivity extends Activity {
             else {
                 String[] allSearches = flightData.split("---");
                 JSONObject[] allJSONSearches = new JSONObject[allSearches.length];
+                setBackgroundColorLayout(allSearches.length - 1);
                 for (int i = 0; i < allSearches.length; i++) {
                     try {
                         allJSONSearches[i] = new JSONObject(allSearches[i]);
@@ -92,7 +88,6 @@ public class SavedActivity extends Activity {
                 for (int i = 0; i < allJSONSearches.length; i++) {
                     try {
                         JSONObject json = allJSONSearches[i];
-                        String status = json.getString("status");
                         String flightDate = json.getString("flightDate");
 
                         JSONObject departureInfo = json.getJSONArray("departureInfo").getJSONObject(0);
@@ -139,6 +134,33 @@ public class SavedActivity extends Activity {
                     }
                 }
             }
+        }
+    }
+
+    private void setBackgroundColorLayout(int index) {
+        if (index >= 0) {
+            LinearLayout layout0 = (LinearLayout) findViewById(R.id.savedLayout0);
+            layout0.setBackgroundColor(Color.WHITE);
+        }
+        if (index >= 1) {
+            LinearLayout layout1 = (LinearLayout) findViewById(R.id.savedLayout1);
+            layout1.setBackgroundColor(Color.WHITE);
+        }
+        if (index >= 2) {
+            LinearLayout layout2 = (LinearLayout) findViewById(R.id.savedLayout2);
+            layout2.setBackgroundColor(Color.WHITE);
+        }
+        if (index >= 3) {
+            LinearLayout layout3 = (LinearLayout) findViewById(R.id.savedLayout3);
+            layout3.setBackgroundColor(Color.WHITE);
+        }
+        if (index >= 4) {
+            LinearLayout layout4 = (LinearLayout) findViewById(R.id.savedLayout4);
+            layout4.setBackgroundColor(Color.WHITE);
+        }
+        if (index >= 5) {
+            LinearLayout layout5 = (LinearLayout) findViewById(R.id.savedLayout5);
+            layout5.setBackgroundColor(Color.WHITE);
         }
     }
 

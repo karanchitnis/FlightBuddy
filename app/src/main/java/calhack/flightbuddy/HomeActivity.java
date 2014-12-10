@@ -3,6 +3,8 @@ package calhack.flightbuddy;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,11 +26,16 @@ public class HomeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        getWindow().setWindowAnimations(android.R.anim.slide_in_left);
+
 
         ImageButton searchButton = (ImageButton) findViewById(R.id.search);
         Button homeToSearch = (Button) findViewById(R.id.homeToSearch);
         ImageButton savedButton = (ImageButton) findViewById(R.id.saved);
         ImageButton descriptionButton = (ImageButton) findViewById(R.id.description);
+        ImageButton homeButton = (ImageButton) findViewById(R.id.home);
+
+        homeButton.setBackgroundColor(Color.parseColor("#E8DDCB"));
 
         searchButton.setOnClickListener(searchButtonListener);
         homeToSearch.setOnClickListener(searchButtonListener);
@@ -40,12 +47,14 @@ public class HomeActivity extends Activity {
 
         TextView upcommingFlight = (TextView) findViewById(R.id.upcommingFlight);
         if (myPrefs.getString("flightData", "").equals("")) {
-            //TODO: HOME PAGE IF THERE ARE NO SAVED ENTIRES
             upcommingFlight.setText("No Flights Saved!");
         }
         else {
             String flightDataIndex = myPrefs.getString("flightDataIndex", "0");
             int index = Integer.parseInt(flightDataIndex);
+            if (index == myPrefs.getString("flightData",  "").split("---").length) {
+                index -= 1;
+            }
             String flightInfo = myPrefs.getString("flightData",  "").split("---")[index];
             updateAttributes(flightInfo);
             upcommingFlight.setText(upcommingFlight.getText() + " " + flightDate);
