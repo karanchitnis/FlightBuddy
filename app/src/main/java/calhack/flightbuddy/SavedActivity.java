@@ -303,7 +303,7 @@ public class SavedActivity extends Activity {
         simpleTextCard = new SimpleTextCard("statusCard");
         simpleTextCard.setHeaderText("Status");
         String[] messagesToShow2 = {"Estimated Departure Time: " + "12:00",
-                "Departure Gate: " + "61B",
+                "Departure Gate: " + "12",
                 "Departure Terminal: " + "9 3/4"};
         simpleTextCard.setMessageText(messagesToShow2);
         simpleTextCard.setReceivingEvents(false);
@@ -312,6 +312,8 @@ public class SavedActivity extends Activity {
 
         simpleTextCard = new SimpleTextCard("trafficCard");
         simpleTextCard.setHeaderText("Traffic");
+        String[] trafficMessage = {"ETA: " + "26 minutes"};
+        simpleTextCard.setMessageText(trafficMessage);
         simpleTextCard.setReceivingEvents(false);
         simpleTextCard.setShowDivider(true);
         listCard.add(simpleTextCard);
