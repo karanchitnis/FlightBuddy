@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -12,14 +14,36 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+
+import com.qualcomm.toq.smartwatch.api.v1.deckofcards.Constants;
+import com.qualcomm.toq.smartwatch.api.v1.deckofcards.card.Card;
+import com.qualcomm.toq.smartwatch.api.v1.deckofcards.card.ListCard;
+import com.qualcomm.toq.smartwatch.api.v1.deckofcards.card.SimpleTextCard;
+import com.qualcomm.toq.smartwatch.api.v1.deckofcards.remote.DeckOfCardsManager;
+import com.qualcomm.toq.smartwatch.api.v1.deckofcards.remote.RemoteDeckOfCards;
+import com.qualcomm.toq.smartwatch.api.v1.deckofcards.remote.RemoteDeckOfCardsException;
+import com.qualcomm.toq.smartwatch.api.v1.deckofcards.remote.RemoteResourceStore;
+import com.qualcomm.toq.smartwatch.api.v1.deckofcards.resource.CardImage;
+
+import java.io.InputStream;
+import java.util.Iterator;
 
 /**
  * Created by Karan Chitnis on 12/7/2014.
  */
 public class SavedActivity extends Activity {
+
+    private DeckOfCardsManager mDeckOfCardsManager;
+    private RemoteDeckOfCards mRemoteDeckOfCards;
+    private CardImage[] mCardImages;
+    private RemoteResourceStore mRemoteResourceStore;
+    private boolean cardExist;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,6 +157,275 @@ public class SavedActivity extends Activity {
             clearButton.setText("Add a flight!");
             clearButton.setOnClickListener(searchButtonListener);
         }
+
+        Button toqB = (Button) findViewById(R.id.toqIns);
+        toqB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                install();
+            }
+        });
+        mDeckOfCardsManager = DeckOfCardsManager.getInstance(getApplication());
+        toqIni();
+    }
+
+    private void toqIni() {
+        mRemoteResourceStore = new RemoteResourceStore();
+        // Try to retrieve a stored deck of cards
+        try {
+            mRemoteDeckOfCards = createDeckOfCards();
+        } catch (Throwable th) {
+            th.printStackTrace();
+        }
+    }
+
+    private void install() {
+        boolean isInstalled = false;
+
+        try {
+            isInstalled = mDeckOfCardsManager.isInstalled();
+        } catch (RemoteDeckOfCardsException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error: Can't determine if app is installed", Toast.LENGTH_SHORT).show();
+        }
+
+        if (!isInstalled) {
+            try {
+                mDeckOfCardsManager.installDeckOfCards(mRemoteDeckOfCards, mRemoteResourceStore);
+
+//                makeCards();
+            } catch (RemoteDeckOfCardsException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Error: Cannot install application", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(this, "App is already installed!", Toast.LENGTH_SHORT).show();
+        }
+
+
+        if (mRemoteDeckOfCards == null) {
+            mRemoteDeckOfCards = createDeckOfCards();
+//            makeCards();
+        }
+
+    }
+
+    private CardImage findImage(String conditionIn ) {
+        if (conditionIn.toLowerCase().contains("sun")) {
+            return mCardImages[5];
+        }
+        else if (conditionIn.toLowerCase().contains("cloud")) {
+            return mCardImages[0];
+        }
+        else if (conditionIn.toLowerCase().contains("storm")) {
+            return mCardImages[4];
+        }
+        else if (conditionIn.toLowerCase().contains("snow")) {
+            return mCardImages[3];
+        }
+        else if (conditionIn.toLowerCase().contains("rain")) {
+            return mCardImages[2];
+        }
+        else if (conditionIn.toLowerCase().contains("fog")) {
+            return mCardImages[1];
+        }
+        else {
+            return mCardImages[5];
+        }
+    }
+
+
+    // Read an image from assets and return as a bitmap
+    private Bitmap getBitmap(String fileName) throws Exception {
+
+        try {
+            InputStream is = getAssets().open(fileName);
+            Bitmap b = BitmapFactory.decodeStream(is);
+            return Bitmap.createScaledBitmap(b, 250, 288, false);
+        } catch (Exception e) {
+            throw new Exception("An error occurred getting the bitmap: " + fileName, e);
+        }
+    }
+
+    private RemoteDeckOfCards createDeckOfCards(){
+
+        ListCard listCard= new ListCard();
+        return new RemoteDeckOfCards(this, listCard);
+    }
+
+    // Need Input HERERERERERERERERERERERERERER KARAAAAAAAAAAAAAAAAAAAAAN
+    private void makeCards() {
+
+
+        mCardImages = new CardImage[6];
+        try {
+            mCardImages[0] = new CardImage("cloudy", getBitmap("cloudy.png"));
+            mCardImages[1] = new CardImage("foggy", getBitmap("foggy.png"));
+            mCardImages[2] = new CardImage("rainy", getBitmap("rainy.png"));
+            mCardImages[3] = new CardImage("snowy", getBitmap("snowy.png"));
+            mCardImages[4] = new CardImage("stormy", getBitmap("stormy.png"));
+            mCardImages[5] = new CardImage("sunny", getBitmap("sunny.png"));
+
+            mRemoteResourceStore.addResource(mCardImages[0]);
+            mRemoteResourceStore.addResource(mCardImages[1]);
+            mRemoteResourceStore.addResource(mCardImages[2]);
+            mRemoteResourceStore.addResource(mCardImages[3]);
+            mRemoteResourceStore.addResource(mCardImages[4]);
+            mRemoteResourceStore.addResource(mCardImages[5]);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Can't get picture icon");
+            return;
+        }
+
+        try {
+            mDeckOfCardsManager.updateDeckOfCards(mRemoteDeckOfCards, mRemoteResourceStore);
+        } catch (RemoteDeckOfCardsException e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Failed to add resources", Toast.LENGTH_SHORT).show();
+        }
+
+
+        ListCard listCard = mRemoteDeckOfCards.getListCard();
+
+        SimpleTextCard simpleTextCard = new SimpleTextCard("WeatherCard");
+        simpleTextCard.setHeaderText("Weather");
+        simpleTextCard.setTitleText("Condition: " + "sunny");
+        simpleTextCard.setCardImage(mRemoteResourceStore, findImage("sunny"));
+        String[] messagesToShow = {"Temperature: " + "72F"};
+        simpleTextCard.setMessageText(messagesToShow);
+        simpleTextCard.setReceivingEvents(false);
+        simpleTextCard.setShowDivider(true);
+        listCard.add(simpleTextCard);
+
+        simpleTextCard = new SimpleTextCard("statusCard");
+        simpleTextCard.setHeaderText("Status");
+        String[] messagesToShow2 = {"Estimated Departure Time: " + "12:00",
+                "Departure Gate: " + "61B",
+                "Departure Terminal: " + "9 3/4"};
+        simpleTextCard.setMessageText(messagesToShow2);
+        simpleTextCard.setReceivingEvents(false);
+        simpleTextCard.setShowDivider(true);
+        listCard.add(simpleTextCard);
+
+        simpleTextCard = new SimpleTextCard("trafficCard");
+        simpleTextCard.setHeaderText("Traffic");
+        simpleTextCard.setReceivingEvents(false);
+        simpleTextCard.setShowDivider(true);
+        listCard.add(simpleTextCard);
+
+        cardExist = true;
+
+        try {
+            mDeckOfCardsManager.updateDeckOfCards(mRemoteDeckOfCards, mRemoteResourceStore);
+        } catch (RemoteDeckOfCardsException e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Failed to Create SimpleTextCard", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+
+
+    private void updateCard() {
+        if (cardExist) {
+
+
+            int count = 0;
+            for (Iterator<Card> it = mRemoteDeckOfCards.getListCard().iterator(); it.hasNext(); count ++) {
+                if (count == 0) {
+                    //weather!
+                    ((SimpleTextCard) it.next()).setTitleText("Condition: " + "cloudy");
+                    ((SimpleTextCard) it.next()).setCardImage(mRemoteResourceStore, findImage("cloudy"));
+                    String[] messagesToShow = {"Temperature: " + "78F"};
+                    ((SimpleTextCard) it.next()).setMessageText(messagesToShow);
+                    try {
+                        mDeckOfCardsManager.updateDeckOfCards(mRemoteDeckOfCards, mRemoteResourceStore);
+                    } catch (RemoteDeckOfCardsException e) {
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(), "Failed to Update SimpleTextCard", Toast.LENGTH_SHORT).show();
+                    }
+                } else if (count == 1) {
+                    // status
+                    String[] messagesToShow2 = {"Estimated Departure Time: " + "22:00",
+                            "Departure Gate: " + "61c",
+                            "Departure Terminal: " + "8 8/9"};
+                    ((SimpleTextCard) it.next()).setMessageText(messagesToShow2);
+                    try {
+                        mDeckOfCardsManager.updateDeckOfCards(mRemoteDeckOfCards, mRemoteResourceStore);
+                    } catch (RemoteDeckOfCardsException e) {
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(), "Failed to Update SimpleTextCard", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+
+            }
+
+            try {
+                mDeckOfCardsManager.updateDeckOfCards(mRemoteDeckOfCards, mRemoteResourceStore);
+            } catch (RemoteDeckOfCardsException e) {
+                e.printStackTrace();
+                Toast.makeText(getApplicationContext(), "Failed to Create SimpleTextCard", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    }
+
+    protected void onStart(){
+        super.onStart();
+
+        // If not connected, try to connect
+        if (!mDeckOfCardsManager.isConnected()){
+            try{
+                mDeckOfCardsManager.connect();
+            }
+            catch (RemoteDeckOfCardsException e){
+                e.printStackTrace();
+                Toast.makeText(getApplicationContext(), "Failed to connect the Toq", Toast.LENGTH_SHORT).show();
+            }
+        }
+//        install();
+//        makeCards();
+
+    }
+
+    private void uninstall() {
+        boolean isInstalled = true;
+        cardExist = false;
+
+        try {
+            isInstalled = mDeckOfCardsManager.isInstalled();
+        } catch (RemoteDeckOfCardsException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error: Can't determine if app is installed", Toast.LENGTH_SHORT).show();
+        }
+
+        if (isInstalled) {
+            try {
+                removeDeckOfCards();
+                mDeckOfCardsManager.uninstallDeckOfCards();
+            } catch (RemoteDeckOfCardsException e) {
+                Toast.makeText(this,"Error uninstalling deck of cards", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(this, "Already uninstalled", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void removeDeckOfCards() {
+        ListCard listCard = mRemoteDeckOfCards.getListCard();
+        while (listCard.size() != 0) {
+            listCard.remove(0);
+            try {
+                mDeckOfCardsManager.updateDeckOfCards(mRemoteDeckOfCards, mRemoteResourceStore);
+            } catch (RemoteDeckOfCardsException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Failed to delete Card from ListCard", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private void setBackgroundColorLayout(int index) {
@@ -181,6 +474,18 @@ public class SavedActivity extends Activity {
                 editor.putString("flightDataIndex", "5");
             }
             editor.commit();
+
+            if (cardExist) {
+                updateCard();
+            } else if (mRemoteDeckOfCards != null) {
+                makeCards();
+            }
+
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
             Intent intent = new Intent(v.getContext(), DescriptionActivity.class);
             startActivity(intent);
