@@ -304,15 +304,11 @@ public class SavedActivity extends Activity {
 
         simpleTextCard = new SimpleTextCard("statusCard");
         simpleTextCard.setHeaderText("Status");
-<<<<<<< HEAD
-        String[] messagesToShow2 = {"Estimated Departure Time: " + "12:00",
-                "Departure Gate: " + "12",
-                "Departure Terminal: " + "9 3/4"};
-=======
+
         String[] messagesToShow2 = {"Estimated Departure Time: " + departureEstimateTime,
                 "Departure Gate: " + departureGate,
                 "Departure Terminal: " + departureTerminal};
->>>>>>> 025e6d334eb4749d35ff2499024ee3a374ca7548
+
         simpleTextCard.setMessageText(messagesToShow2);
         simpleTextCard.setReceivingEvents(false);
         simpleTextCard.setShowDivider(true);
@@ -337,19 +333,14 @@ public class SavedActivity extends Activity {
 
     }
 
-
-
     private void updateCard() {
         if (cardExist) {
-
-
             int count = 0;
             for (Iterator<Card> it = mRemoteDeckOfCards.getListCard().iterator(); it.hasNext(); count ++) {
                 if (count == 0) {
-                    //weather!
-                    ((SimpleTextCard) it.next()).setTitleText("Condition: " + "cloudy");
-                    ((SimpleTextCard) it.next()).setCardImage(mRemoteResourceStore, findImage("cloudy"));
-                    String[] messagesToShow = {"Temperature: " + "78F"};
+                    ((SimpleTextCard) it.next()).setTitleText("Condition: " + departureConditions);
+                    ((SimpleTextCard) it.next()).setCardImage(mRemoteResourceStore, findImage(departureConditions));
+                    String[] messagesToShow = {"Temperature: " + departureTemperature};
                     ((SimpleTextCard) it.next()).setMessageText(messagesToShow);
                     try {
                         mDeckOfCardsManager.updateDeckOfCards(mRemoteDeckOfCards, mRemoteResourceStore);
@@ -358,10 +349,9 @@ public class SavedActivity extends Activity {
                         Toast.makeText(getApplicationContext(), "Failed to Update SimpleTextCard", Toast.LENGTH_SHORT).show();
                     }
                 } else if (count == 1) {
-                    // status
-                    String[] messagesToShow2 = {"Estimated Departure Time: " + "22:00",
-                            "Departure Gate: " + "61c",
-                            "Departure Terminal: " + "8 8/9"};
+                    String[] messagesToShow2 = {"Estimated Departure Time: " + departureEstimateTime,
+                            "Departure Gate: " + departureGate,
+                            "Departure Terminal: " + departureTerminal};
                     ((SimpleTextCard) it.next()).setMessageText(messagesToShow2);
                     try {
                         mDeckOfCardsManager.updateDeckOfCards(mRemoteDeckOfCards, mRemoteResourceStore);
@@ -369,9 +359,7 @@ public class SavedActivity extends Activity {
                         e.printStackTrace();
                         Toast.makeText(getApplicationContext(), "Failed to Update SimpleTextCard", Toast.LENGTH_SHORT).show();
                     }
-
                 }
-
             }
 
             try {
@@ -380,7 +368,6 @@ public class SavedActivity extends Activity {
                 e.printStackTrace();
                 Toast.makeText(getApplicationContext(), "Failed to Create SimpleTextCard", Toast.LENGTH_SHORT).show();
             }
-
         }
     }
 
